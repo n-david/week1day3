@@ -1,6 +1,9 @@
 function countLetters(message) {
   var uniqueLetters = {};
   for (var i = 0; i < message.length; i++) {
+    if (message[i] === ' ') {
+      i++;
+    }
     if (!(message[i] in uniqueLetters)) {
       uniqueLetters[message[i]] = [];
     }
