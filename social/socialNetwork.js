@@ -31,6 +31,62 @@ var data = {
   }
 };
 
-var listEveryone = function () {
-
+var followsList = function (person) {
+  var followsList = [];
+  for (var i = 0; i < data[person]['follows'].length; i++) {
+    followsList.push(data[data[person]['follows'][i]]['name']);
+  }
+  return followsList;
 }
+
+var followedList = function (person) {
+  var followedList = [];
+  for (id in data) {
+    for (var i = 0; i < data[id]['follows'].length; i++) {
+      if (person === data[id]['follows'][i]) {
+        followedList.push(data[id]['name']);
+      }
+    }
+  }
+  return followedList;
+}
+
+var listEveryone = function () {
+  var peopleList = {};
+  for (id in data) {
+    peopleList[data[id]['name']] = {follows: followsList(id), followed: followedList(id)};
+  }
+  console.log(peopleList);
+}
+
+var followsMostPeople = function () {
+  var stalker;
+  var followsMost;
+  for (id in data) {
+    if (followsList(id).length > followsMost || stalker == null) {
+      followsMost = followsList(id).length;
+      stalker = data[id]['name'];
+    }
+  }
+  console.log(stalker, 'follows the most people');
+}
+
+var hasMostFollowers = function () {
+  var popular;
+  var followedMost;
+  for (id in data) {
+    if (followedList(id).length > followedMost || popular == null) {
+      followedMost = followedList(id).length;
+      popular = data[id]['name'];
+    }
+  }
+  console.log(popular, 'Has the most followers');
+}
+var hasMostFollowersOverThirty = function () {}
+var followsMostPeopleOverThirty = function () {}
+var followsButNoFollowBack = function () {}
+var everyoneAndReach = function () {}
+
+listEveryone();
+followsMostPeople(); //Deal with ties
+hasMostFollowers(); //Deal with ties
