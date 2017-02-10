@@ -34,7 +34,7 @@ var data = {
 var followsList = function (person) {
   var followsList = [];
   for (var i = 0; i < data[person]['follows'].length; i++) {
-    followsList.push(data[data[person]['follows'][i]]['name']);
+    followsList.push(data[person]['follows'][i]);
   }
   return followsList;
 }
@@ -44,17 +44,25 @@ var followedList = function (person) {
   for (id in data) {
     for (var i = 0; i < data[id]['follows'].length; i++) {
       if (person === data[id]['follows'][i]) {
-        followedList.push(data[id]['name']);
+        followedList.push(id);
       }
     }
   }
   return followedList;
 }
 
+var idToName = function (idList) {
+  var nameList = [];
+  for (var i = 0; i < idList.length; i++) {
+    nameList.push(data[idList[i]]['name']);
+  }
+  return nameList;
+}
+
 var listEveryone = function () {
   var peopleList = {};
   for (id in data) {
-    peopleList[data[id]['name']] = {follows: followsList(id), followed: followedList(id)};
+    peopleList[data[id]['name']] = {follows: idToName(followsList(id)), followed: idToName(followedList(id))};
   }
   console.log(peopleList);
 }
@@ -80,12 +88,33 @@ var hasMostFollowers = function () {
       popular = data[id]['name'];
     }
   }
-  console.log(popular, 'Has the most followers');
+  console.log(popular, 'has the most followers');
 }
-var hasMostFollowersOverThirty = function () {}
+
+var hasMostFollowersOverThirty = function () {
+  var popular;
+  var followedMost;
+  for (id in data) {
+    var followers = followedList(id);
+    for (var i = 0; i < followers.length; i++) {
+      if (data[followers[i]]['age'] < 30) {
+        followers.pop();
+      }
+    }
+    if (followers.length > followedMost || popular == null) {
+      followedMost = followers.length;
+      popular = data[id]['name'];
+    }
+  }
+  console.log(popular, 'has the most followers that are over 30');
+}
+
+hasMostFollowersOverThirty() //DO THIS
+
 var followsMostPeopleOverThirty = function () {}
 var followsButNoFollowBack = function () {}
 var everyoneAndReach = function () {}
+
 
 listEveryone();
 followsMostPeople(); //Deal with ties

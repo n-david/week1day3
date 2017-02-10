@@ -4,8 +4,7 @@ function countLetters(message) {
   for (var i = 0; i < noSpaces.length; i++) {
     if (!(noSpaces[i] in uniqueLetters)) {
       uniqueLetters[noSpaces[i]] = 1;
-    }
-    else {
+    } else {
       uniqueLetters[noSpaces[i]] += 1;
     }
   }
