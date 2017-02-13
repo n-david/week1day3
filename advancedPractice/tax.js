@@ -26,7 +26,7 @@ function calculateSalesTax(salesData, taxRates) {
   var companyResults = {};
   for (var i = 0; i < salesData.length; i++) {
     if (!(salesData[i]['name'] in companyResults)) {
-        companyResults[salesData[i]['name']] = {totalSales: 0, totalTaxes: 0};
+      companyResults[salesData[i]['name']] = {totalSales: 0, totalTaxes: 0};
     }
     var sales = 0;
     for (var j = 0; j < salesData[i]['sales'].length; j++) {
